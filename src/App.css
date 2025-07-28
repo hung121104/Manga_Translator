@@ -1,1 +1,39 @@
-@import "tailwindcss";
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.manga-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.image-display {
+  margin-bottom: 20px;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.image-display img {
+  transition: transform 0.1s ease-out;
+  transform-origin: center center;
+}
+
+.navigation button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.zoom-controls {
+  margin-bottom: 10px;
+}
+
+.zoom-controls button {
+  margin: 0 5px;
+  padding: 8px 12px;
+}
