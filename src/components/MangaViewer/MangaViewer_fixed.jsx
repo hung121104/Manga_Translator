@@ -5,7 +5,6 @@ import ImageDisplay from './ImageDisplay';
 import Navigation from './Navigation';
 import ZoomControls from '../Controls/ZoomControls';
 import TranslateButton from '../Controls/TranslateButton';
-import LanguageSelector from '../Settings/LanguageSelector';
 import useZoomPan from '../../hooks/useZoomPan';
 import { translateImageComplete } from '../../services/translationService';
 import TranslationDisplay from '../TranslationDisplay';
@@ -17,8 +16,6 @@ const MangaViewer = () => {
   const [translationResult, setTranslationResult] = useState(null);
   const [translationProgress, setTranslationProgress] = useState(null);
   const [translatedImageUrl, setTranslatedImageUrl] = useState(null);
-  const [selectedLanguage, setSelectedLanguage] = useState('CHT'); // Default to Traditional Chinese
-  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
 
   useEffect(() => {
     resetZoomPan();
@@ -47,7 +44,7 @@ const MangaViewer = () => {
       const currentImage = imagePaths[currentIndex];
       // Use exact same options as working Nuxt.js version
       const options = {
-        target_language: selectedLanguage, // Use selected language
+        target_language: 'CHT', // Fixed field name
         detector: 'default',    // Fixed value
         direction: 'default',   // Fixed value  
         translator: 'gpt3.5',   // Fixed value
@@ -99,13 +96,6 @@ const MangaViewer = () => {
         <div className="flex items-center justify-center gap-4 mb-4">
           <TranslateButton onClick={handleTranslate} isLoading={isTranslating} />
           
-          <button
-            onClick={() => setShowLanguageSelector(!showLanguageSelector)}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg flex items-center gap-2"
-          >
-            🌍 Language ({selectedLanguage})
-          </button>
-          
           {translatedImageUrl && (
             <button
               onClick={() => {
@@ -118,19 +108,6 @@ const MangaViewer = () => {
             </button>
           )}
         </div>
-
-        {/* Language Selector */}
-        {showLanguageSelector && (
-          <div className="mb-4 flex justify-center">
-            <LanguageSelector 
-              currentLanguage={selectedLanguage}
-              onLanguageChange={(language) => {
-                setSelectedLanguage(language);
-                setShowLanguageSelector(false);
-              }}
-            />
-          </div>
-        )}
 
         {/* Translation Progress */}
         {translationProgress && (
